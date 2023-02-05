@@ -1,2 +1,1 @@
-# com.etternaonline.Etterna
-A flatpak-builder yml for github.com/etternagame/Etterna.
+<p align="center"><img src="https://raw.githubusercontent.com/etternagame/etterna/master/Docs/images/etterna-logo-light.svg" width=250px></p><br/><br/><br/><p align="center"><h3>etterna-flatpak: A flatpak-builder .yml file for <a href="https://github.com/etternagame/etterna">etternagame/etterna</a>.</h3></p>

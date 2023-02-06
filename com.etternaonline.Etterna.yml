@@ -4,7 +4,6 @@ runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: launcher
 finish-args:
-  - --filesystem=home
   - --share=network
   - --share=ipc
   - --socket=pulseaudio
@@ -33,12 +32,14 @@ modules:
     sources:
       - type: script
         commands:
-          - test ! -d $HOME/.etterna/state && mkdir -p $HOME/.etterna/state/{NoteSkins,Themes,Songs,Assets,Save,Cache} && cp -rf /app/firstrun/etterna-flatpak/* $HOME/.etterna/state
-          - cp -rf $HOME/.etterna/game/{Save,Songs} $HOME/.etterna/state 2> /dev/null
-          - rm -rf $HOME/.etterna/game 2> /dev/null
-          - cp -rf /app/bin/Etterna $HOME/.etterna/game
-          - cp -rf $HOME/.etterna/state/* $HOME/.etterna/game
-          - exec $HOME/.etterna/game/Etterna
+          - test ! -d $XDG_STATE_HOME/ettstate && mkdir -p $XDG_STATE_HOME/ettstate/{NoteSkins,Themes,Songs,Assets,Save,Cache} && cp -rf /app/firstrun/etterna-flatpak/* $XDG_STATE_HOME/ettstate
+          - cp -rf $XDG_CACHE_HOME/ettgame/{Save,Songs} $XDG_STATE_HOME/ettstate 2> /dev/null
+          - rm -rf $XDG_CACHE_HOME/ettgame 2> /dev/null
+          - cp -rf /app/bin/Etterna $XDG_CACHE_HOME/ettgame
+          - cp -rf $XDG_STATE_HOME/ettstate/* $XDG_CACHE_HOME/ettgame
+          - $XDG_CACHE_HOME/ettgame/Etterna
+          - cp -rf $XDG_CACHE_HOME/ettgame/{Save,Songs} $XDG_STATE_HOME/ettstate 2> /dev/null
+          - rm -rf $XDG_CACHE_HOME/ettgame 2> /dev/null
         dest-filename: launcher
       - type: archive
         url: "https://github.com/etternagame/etterna/releases/download/v0.72.1/Etterna-0.72.1-Linux.tar.gz"

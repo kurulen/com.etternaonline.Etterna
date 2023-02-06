@@ -34,14 +34,12 @@ modules:
     sources:
       - type: script
         commands:
-          - test ! -d $XDG_STATE_HOME/ettstate && mkdir -p $XDG_STATE_HOME/ettstate/{NoteSkins,Themes,Songs,Assets,Save,Cache} && cp -rf /app/firstrun/etterna-flatpak/* $XDG_STATE_HOME/ettstate
-          - cp -rf $XDG_CACHE_HOME/ettgame/{Save,Songs} $XDG_STATE_HOME/ettstate 2> /dev/null
-          - rm -rf $XDG_CACHE_HOME/ettgame 2> /dev/null
-          - cp -rf /app/bin/Etterna $XDG_CACHE_HOME/ettgame
-          - cp -rf $XDG_STATE_HOME/ettstate/* $XDG_CACHE_HOME/ettgame
-          - $XDG_CACHE_HOME/ettgame/Etterna
-          - cp -rf $XDG_CACHE_HOME/ettgame/{Save,Songs} $XDG_STATE_HOME/ettstate 2> /dev/null
-          - rm -rf $XDG_CACHE_HOME/ettgame 2> /dev/null
+          - test ! -d $XDG_DATA_HOME/gamedata && mkdir -p $XDG_DATA_HOME/gamedata/{NoteSkins,Themes,Songs,Assets,Save,Cache,Logs,CrashData} && cp -rf /app/firstrun/etterna-flatpak/* $XDG_DATA_HOME/gamedata
+          - for x in NoteSkins Themes Songs Assets Save Cache Logs CrashData; do test ! -L $XDG_CACHE_HOME/gamecache/$x || unlink $XDG_CACHE_HOME/gamecache/$x; done
+          - rm -rf $XDG_CACHE_HOME/gamecache 2> /dev/null
+          - cp -rf /app/bin/Etterna $XDG_CACHE_HOME/gamecache
+          - for x in NoteSkins Themes Songs Assets Save Cache Logs CrashData; do test ! -L $XDG_CACHE_HOME/gamecache/$x && ln -sf $XDG_DATA_HOME/gamedata/$x $XDG_CACHE_HOME/gamecache/$x; done
+          - $XDG_CACHE_HOME/gamecache/Etterna
         dest-filename: launcher
       - type: archive
         url: "https://github.com/etternagame/etterna/releases/download/v0.72.1/Etterna-0.72.1-Linux.tar.gz"

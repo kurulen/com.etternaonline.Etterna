@@ -13,7 +13,9 @@ modules:
   - name: etterna
     buildsystem: simple
     build-commands:
-      - ar -x libglu.deb
+      - cat debian.files | grep libglu1-mesa | grep -v "dev" | grep -v "+b" | sed -e "s/\.\/pool/https\:\/\/ftp\.debian\.org\/debian\/pool/g" | sort -r | head -n1 > debian.proper.files
+      - while [ ! -f DONE ]; do sleep 1; done
+      - ar x libglu*
       - tar xvf data.tar.xz
       - mkdir -p /app/{bin,lib,firstrun/etterna-flatpak}
       - mkdir -p /app/share/{applications,icons/hicolor/scalable/apps,metainfo}
@@ -47,9 +49,9 @@ modules:
         sha256: "36db982c15eb4a8b5082ecccec7f92320c48e7a3c6da07721e635b3abe2185b5"
         dest-filename: Etterna
       - type: file
-        url: "http://deb.debian.org/debian/pool/main/libg/libglu/libglu1-mesa_9.0.1-1_amd64.deb"
-        sha256: "479736c235af0537c1af8df4befc32e638a4e979961fdb02f366501298c50526"
-        dest-filename: libglu.deb
+        url: "https://deb.debian.org/debian/indices/files/arch-amd64.files"
+        md5: "Xdebmd5"
+        dest-filename: debian.files
       - type: file
         url: "https://raw.githubusercontent.com/etternagame/etterna/master/Docs/images/etterna-logo-light.svg"
         sha256: "0c2d18f8a95809b023c19b160ac6f9cbd2e012a81b5d02b8ea9f35d88e1ae9a6"

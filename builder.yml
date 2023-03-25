@@ -48,7 +48,7 @@ modules:
         dest-filename: Etterna
       - type: file
         url: "https://deb.debian.org/debian/indices/files/arch-amd64.files"
-        sha256: "Xdebsha"
+        sha256: "adf28ee76f09081151f71676e5b1ae58f6e7d13c7c523f2e5fd3ac6225b7f6e1"
         dest-filename: debian.files
       - type: file
         url: "https://raw.githubusercontent.com/etternagame/etterna/master/Docs/images/etterna-logo-light.svg"

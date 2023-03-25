@@ -4,7 +4,9 @@ rm -rf .flatpak-builder/ build-dir/ builder.yml > /dev/null 2>&1
 
 echo -e "[\e[0;92mBUILDER_SCRIPT\e[0m] Templating the original file, hold still."
 
-m4 -D Xdebmd5="$(curl https://ftp.debian.org/debian/indices/md5sums.gz | gunzip | grep arch-amd64.files | cut -d" " -f1)" com.etternaonline.Etterna.yml > builder.yml
+DEBSHA=$(curl -sL https://deb.debian.org/debian/indices/files/arch-amd64.files | sha256sum)
+DEBSHA=$(echo "${DEBSHA}" | cut -d " " -f1)
+m4 -D Xdebsha="${DEBSHA}" com.etternaonline.Etterna.yml > builder.yml
 
 echo -e "[\e[0;92mBUILDER_SCRIPT\e[0m] Building the Flatpak. This script shouldn't error out.\nIf anything goes wrong, report it to the devs."
 
